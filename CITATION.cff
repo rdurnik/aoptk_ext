@@ -1,0 +1,19 @@
+# YAML 1.2
+---
+cff-version: "1.2.0"
+title: "aoptk_ext"
+authors:
+  - family-names: Durník
+    given-names: Robin
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+date-released: 2026-04-20
+version: "0.1.0"
+repository-code: "https://github.com/rdurnik/aoptk_ext"
+keywords:
+  - "AOP"
+  - "toxicology"
+  - "data mining"
+  - "ai"
+  - "machine learning"
+  - "data analysis"
+message: "If you use this software, please cite it using these metadata."
