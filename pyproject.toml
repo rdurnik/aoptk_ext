@@ -22,7 +22,23 @@ classifiers = [
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
 ]
-dependencies = []
+dependencies = [
+    "aoptk",
+    "pandas",
+    "requests",
+    "scispacy",
+    "numpy>=1.26,<2.0",
+    "spacy>=3.0.0,<3.8.0",
+    "beautifulsoup4",
+    "biopython",
+    "transformers",
+    "torch",
+    "openpyxl",
+    "click>=8.1",
+    "python-dotenv",
+    "setuptools",
+    "spacy-layout",
+]
 description = "Extension of aoptk package."
 keywords = ["AOP","toxicology","data mining","ai","machine learning","data analysis"]
 license = {file = "LICENSE"}
@@ -34,7 +50,7 @@ version = "0.1.0"
 [project.optional-dependencies]
 dev = [
     "build",  # build is not only used in publishing (below), but also in the template's test suite
-    "bump-my-version",
+    "bumpversion",
     "coverage [toml]",
     "pytest",
     "pytest-cov",
@@ -42,8 +58,12 @@ dev = [
     "sphinx",
     "sphinx_rtd_theme",
     "sphinx-autoapi",
-    "tox",
     "myst_parser",
+    "jupyter",
+    "ipykernel",
+    "fuzzywuzzy",
+    "pytest-mock",
+    "boto3",
 ]
 docs = [
     "sphinx",
@@ -101,11 +121,14 @@ ignore = [
     "FIX001", # Resolve FIXMEs
     "FIX002", # Resolve TODOs
     "B028",   # No explicit `stacklevel` keyword argument found in warning
+    "RUF001",  # String contains ambiguous ` ` (THIN SPACE). String contains ambiguous `α` (GREEK SMALL LETTER ALPHA).
     # No docstrings required in the following cases
     "D100", # Missing module docstring
     "D104", # Missing public package docstring
     "D105", # Missing docstring in magic method
     "D107", # Missing docstring in `__init__`
+    "S314", # Using `xml` to parse untrusted data is known to be vulnerable to XML attacks; use `defusedxml` equivalents,
+    "TC"
 ]
 pydocstyle.convention = "google"
 
