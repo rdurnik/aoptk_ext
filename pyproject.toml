@@ -23,7 +23,7 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
-    "aoptk>=0.3",
+    "aoptk>=0.3.2",
     "pandas",
     "requests",
     "scispacy",
