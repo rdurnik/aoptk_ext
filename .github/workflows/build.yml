@@ -37,9 +37,7 @@ jobs:
         run: |
           uv lock
           uv sync --frozen --extra dev --extra publishing
-      - name: Download en_ner_bc5cdr_md
-        run: |
-          pip install https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.0/en_ner_bc5cdr_md-0.5.0.tar.gz
+          pip install 'en-ner-bc5cdr-md @ https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.4/en_ner_bc5cdr_md-0.5.4.tar.gz'
       - name: Run unit tests
         run: uv run python -m pytest -v
       - name: Verify that we can build the package
