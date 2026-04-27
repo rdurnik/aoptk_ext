@@ -9,6 +9,8 @@ if TYPE_CHECKING:
 class PubChemAbbreviationUppercase(PubChemAPI):
     """Find chemical abbreviations via PubChem. Check for uppercase as a condition of an abbreviation."""
 
+    timeout = 10
+
     def __init__(self):
         super().__init__()
 

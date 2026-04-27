@@ -11,6 +11,7 @@ class PubChemAbbreviationShort(PubChemAPI):
 
     characters_to_ignore = "-()0123456789[],"
     max_characters_allowed = 4
+    timeout = 10
 
     def __init__(self):
         super().__init__()
