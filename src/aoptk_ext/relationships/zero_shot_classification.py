@@ -4,8 +4,8 @@ from abc import abstractmethod
 from itertools import product
 from typing import TYPE_CHECKING
 import pandas as pd
-from transformers import pipeline
 from aoptk.relationships.find_relationship import FindRelationship
+from transformers import pipeline
 
 if TYPE_CHECKING:
     from aoptk.chemical import Chemical
