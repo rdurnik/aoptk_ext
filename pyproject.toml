@@ -44,7 +44,7 @@ keywords = ["AOP","toxicology","data mining","ai","machine learning","data analy
 license = {file = "LICENSE"}
 name = "aoptk_ext"
 readme = {file = "README.md", content-type = "text/markdown"}
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 version = "0.1.0"
 
 [project.optional-dependencies]
