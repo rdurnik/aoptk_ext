@@ -5,7 +5,7 @@ from itertools import product
 from typing import TYPE_CHECKING
 import pandas as pd
 from transformers import pipeline
-from aoptk_ext.relationships.find_relationship import FindRelationship
+from aoptk.relationships.find_relationship import FindRelationship
 
 if TYPE_CHECKING:
     from aoptk.chemical import Chemical
