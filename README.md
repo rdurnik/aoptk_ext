@@ -1,6 +1,6 @@
 ## Badges
 
-(Customize these badges with your own links, and check https://shields.io/ or https://badgen.net/ to see which other badges are available.)
+Extension of aoptk package.
 
 | fair-software.eu recommendations | |
 | :-- | :--  |
@@ -11,12 +11,10 @@
 | (5/5) checklist                    | [![workflow cii badge](https://bestpractices.coreinfrastructure.org/projects/<replace-with-created-project-identifier>/badge)](https://bestpractices.coreinfrastructure.org/projects/<replace-with-created-project-identifier>) |
 | howfairis                          | [![fair-software badge](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow)](https://fair-software.eu) |
 | **Other best practices**           | &nbsp; |
-| Static analysis                    | [![workflow scq badge](https://sonarcloud.io/api/project_badges/measure?project=rdurnik_aoptk_ext&metric=alert_status)](https://sonarcloud.io/dashboard?id=rdurnik_aoptk_ext) |
-| Coverage                           | [![workflow scc badge](https://sonarcloud.io/api/project_badges/measure?project=rdurnik_aoptk_ext&metric=coverage)](https://sonarcloud.io/dashboard?id=rdurnik_aoptk_ext) || Documentation                      | [![Documentation Status](https://readthedocs.org/projects/aoptk_ext/badge/?version=latest)](https://aoptk_ext.readthedocs.io/en/latest/?badge=latest) || **GitHub Actions**                 | &nbsp; |
+| Documentation                      | [![Documentation Status](https://readthedocs.org/projects/aoptk_ext/badge/?version=latest)](https://aoptk_ext.readthedocs.io/en/latest/?badge=latest) || **GitHub Actions**                 | &nbsp; |
 | Build                              | [![build](https://github.com/rdurnik/aoptk_ext/actions/workflows/build.yml/badge.svg)](https://github.com/rdurnik/aoptk_ext/actions/workflows/build.yml) |
 | Citation data consistency          | [![cffconvert](https://github.com/rdurnik/aoptk_ext/actions/workflows/cffconvert.yml/badge.svg)](https://github.com/rdurnik/aoptk_ext/actions/workflows/cffconvert.yml) || SonarCloud                         | [![sonarcloud](https://github.com/rdurnik/aoptk_ext/actions/workflows/sonarcloud.yml/badge.svg)](https://github.com/rdurnik/aoptk_ext/actions/workflows/sonarcloud.yml) |## How to use aoptk_ext
 
-Extension of aoptk package.
 
 The project setup is documented in [project_setup.md](project_setup.md). Feel free to remove this document (and/or the link to this document) if you don't need it.
 
