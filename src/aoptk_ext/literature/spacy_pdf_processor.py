@@ -183,7 +183,7 @@ class SpacyPDF(PymupdfParser):
                 "",
             )
             abstract_text += " " + rest_of_the_abstract
-        return Abstract(text=abstract_text, publication_id=publication_id)
+        return Abstract(text=abstract_text, id=publication_id)
 
 
 def _extract_figure_descriptions(doc: object) -> list[str]:
