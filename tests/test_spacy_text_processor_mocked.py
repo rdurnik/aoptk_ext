@@ -15,7 +15,7 @@ def spacy_test_env(mocker):
 
     mock_nlp = MagicMock()
     mock_nlp.pipe_names = []
-    mock_load = mocker.patch("aoptk.spacy_models.spacy.load", return_value=mock_nlp)
+    mock_load = mocker.patch("aoptk_ext.spacy_models.spacy.load", return_value=mock_nlp)
 
     yield mock_load
 
