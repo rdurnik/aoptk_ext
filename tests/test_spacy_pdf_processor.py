@@ -11,7 +11,7 @@ from aoptk_ext.literature.spacy_pdf_processor import SpacyPDF
 # ruff: noqa: SLF001
 
 
-def test_can_create(tmp_path_factory: pytest.TempPathFactoryt):
+def test_can_create(tmp_path_factory: pytest.TempPathFactory):
     """Can create SpacyPDF instance."""
     actual = SpacyPDF([], figure_storage=tmp_path_factory.mktemp("spacy_pdf_processor_figures"))
     assert actual is not None
@@ -70,7 +70,7 @@ def test_is_page_header_footer(potential_footer_header: str, output: bool, tmp_p
 
 
 @pytest.fixture(scope="module")
-def publication(provide_publications: dict, provide_temp_storage_figures: dict):
+def publication(provide_publications: dict, provide_temp_storage_figures: Path):
     """Second stage fixture which includes PDF parsing."""
     parser = SpacyPDF(provide_publications["pdfs"], figure_storage=provide_temp_storage_figures)
     publications = parser.get_publications()

@@ -1,6 +1,7 @@
 from __future__ import annotations
 import re
 from pathlib import Path
+from typing import Any
 import pandas as pd
 from aoptk.literature.abstract import Abstract
 from aoptk.literature.id import ID
@@ -17,13 +18,13 @@ from aoptk_ext.spacy_models import SpacyModels
 class SpacyPDF(PymupdfParser):
     """Process PDF using Spacy package."""
 
-    def __init__(self, pdfs: list[PDF], figure_storage: str, model: str = "en"):
+    def __init__(self, pdfs: list[PDF], figure_storage: Path, model: str = "en"):
         """Initialize with a spaCy model.
 
         Args:
             pdfs (list[PDF]): List of PDF objects to process.
             model (str): spaCy model to use.
-            figure_storage (str): Directory to store extracted figures.
+            figure_storage (Path): Directory to store extracted figures.
         """
         self.pdfs = pdfs
         self.figure_storage = figure_storage
@@ -52,11 +53,11 @@ class SpacyPDF(PymupdfParser):
             abstracts.append(abstract)
         return abstracts
 
-    def _parse_doc_pdf(self, doc: object, pdf: PDF) -> Publication:
+    def _parse_doc_pdf(self, doc: Any, pdf: PDF) -> Publication:
         """Parse a single PDF and return a Publication object.
 
         Args:
-            doc (object): The spaCy document object.
+            doc (Any): The spaCy document object.
             pdf (PDF): The PDF object.
         """
         publication_id = ID(Path(pdf.path).stem)
@@ -75,33 +76,33 @@ class SpacyPDF(PymupdfParser):
             tables=tables,
         )
 
-    def _parse_full_text(self, doc: object) -> list[str]:
+    def _parse_full_text(self, doc: Any) -> list[str]:
         """Extract the full text from the PDF.
 
         Args:
-            doc (object): The spaCy document object.
+            doc (Any): The spaCy document object.
         """
         first_page_spans = self._extract_first_page_spans(doc)
         remaining_pages_spans = self._extract_remaining_pages_spans(doc)
 
         return first_page_spans + remaining_pages_spans
 
-    def _extract_first_page_spans(self, doc: object) -> list[str]:
+    def _extract_first_page_spans(self, doc: Any) -> list[str]:
         """Extract text spans from the first page of the PDF.
 
         Args:
-            doc (object): The spaCy document object.
+            doc (Any): The spaCy document object.
         """
         _, page_spans = doc._.pages[0]
         return [span.text for span in page_spans if span.label_ == "text"]
 
-    def _extract_remaining_pages_spans(self, doc: object) -> list[str]:
+    def _extract_remaining_pages_spans(self, doc: Any) -> list[str]:
         """Extract text spans from the remaining pages of the PDF.
 
         Args:
-            doc (object): The spaCy document object.
+            doc (Any): The spaCy document object.
         """
-        remaining_pages_spans = []
+        remaining_pages_spans: list[str] = []
         remaining_pages = doc._.pages[1:]
         if accumulated_text := self._extract_accumulated_text_across_pages(remaining_pages_spans, remaining_pages):
             remaining_pages_spans.append(accumulated_text)
@@ -109,8 +110,8 @@ class SpacyPDF(PymupdfParser):
 
     def _extract_accumulated_text_across_pages(
         self,
-        remaining_pages_spans: list[object],
-        remaining_pages: list[object],
+        remaining_pages_spans: list[str],
+        remaining_pages: list[tuple[Any, list[Any]]],
     ) -> str:
         """Accumulate text across pages until a boundary is reached.
 
@@ -129,11 +130,11 @@ class SpacyPDF(PymupdfParser):
                     accumulated_text = ""
         return accumulated_text
 
-    def _should_skip_span(self, span: object) -> bool:
+    def _should_skip_span(self, span: Any) -> bool:
         """Check if span should be skipped based on various criteria.
 
         Args:
-            span (object): The text span object.
+            span (Any): The text span object.
         """
         return span.label_ != "text" or self._is_page_header_footer(span.text) or contains_any(span.text, ["GLYPH<c="])
 
@@ -167,17 +168,17 @@ class SpacyPDF(PymupdfParser):
             re.search(doi_pattern, text),
         )
 
-    def _parse_abstract(self, doc: object, publication_id: ID) -> Abstract:
+    def _parse_abstract(self, doc: Any, publication_id: ID) -> Abstract:
         """Extract the abstract from the PDF text.
 
         Args:
-            doc (object): The spaCy document object.
+            doc (Any): The spaCy document object.
             publication_id (ID): The publication ID.
         """
         _, page_spans = doc._.pages[0]
         largest_span = max(page_spans, key=lambda span: len(span.text) if hasattr(span, "text") else 0, default=None)
         abstract_text = largest_span.text if largest_span else ""
-        if not ends(largest_span.text):
+        if largest_span and not ends(largest_span.text):
             rest_of_the_abstract = next(
                 (span.text for span in page_spans if span != largest_span and ends(span.text)),
                 "",
@@ -186,19 +187,19 @@ class SpacyPDF(PymupdfParser):
         return Abstract(text=abstract_text, id=publication_id)
 
 
-def _extract_figure_descriptions(doc: object) -> list[str]:
+def _extract_figure_descriptions(doc: Any) -> list[str]:
     """Extract figure descriptions from the PDF.
 
     Args:
-        doc (object): The spaCy document object.
+        doc (Any): The spaCy document object.
     """
     return [span.text for span in doc.spans["layout"] if span.label_ == "caption"]
 
 
-def _extract_tables(doc: object) -> list[pd.DataFrame]:
+def _extract_tables(doc: Any) -> list[pd.DataFrame]:
     """Extract tables from the PDF.
 
     Args:
-        doc (object): The spaCy document object.
+        doc (Any): The spaCy document object.
     """
     return [table._.data for table in doc._.tables]

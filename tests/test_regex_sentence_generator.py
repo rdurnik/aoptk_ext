@@ -86,7 +86,7 @@ def sentence_cases(request: pytest.FixtureRequest):
     return request.param
 
 
-def test_generate_sentences(sentence_cases: pytest.FixtureRequest):
+def test_generate_sentences(sentence_cases: tuple[str, list[str]]):
     """Test generate_sentences method with various cases."""
     text, expected = sentence_cases
     actual = [sentence.text for sentence in RegexSentenceGenerator().tokenize(text)]
