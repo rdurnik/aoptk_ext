@@ -23,7 +23,7 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
-    "aoptk>=0.4.3",
+    "aoptk==0.5.0",
     "pandas",
     "requests",
     "scispacy",
@@ -38,6 +38,7 @@ dependencies = [
     "python-dotenv",
     "setuptools",
     "spacy-layout",
+    "en-ner-bc5cdr-md @ https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.4/en_ner_bc5cdr_md-0.5.4.tar.gz",
 ]
 description = "Extension of aoptk package."
 keywords = ["AOP","toxicology","data mining","ai","machine learning","data analysis"]
@@ -68,6 +69,7 @@ dev = [
     "fuzzywuzzy",
     "pytest-mock",
     "boto3",
+    "mypy",
 ]
 docs = [
     "sphinx",
@@ -163,3 +165,7 @@ filename = "CITATION.cff"
 
 [[tool.bumpversion.files]]
 filename = "docs/conf.py"
+
+[tool.mypy]
+ignore_missing_imports = true
+disable_error_code = ["override"]
