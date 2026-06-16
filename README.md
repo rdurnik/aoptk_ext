@@ -16,7 +16,7 @@ uv pip install .
 
 ## Documentation
 
-Include a link to your project's full documentation here.
+TBA.
 
 ## Credits
 
