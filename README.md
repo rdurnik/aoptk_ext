@@ -1,41 +1,22 @@
-## Badges
+[![github license badge](https://img.shields.io/github/license/rdurnik/aoptk_ext)](https://github.com/rdurnik/aoptk_ext) [![workflow pypi badge](https://img.shields.io/pypi/v/aoptk_ext.svg?colorB=blue)](https://pypi.python.org/project/aoptk_ext/) [![DOI](https://zenodo.org/badge/DOI/<replace-with-created-DOI>.svg)](https://doi.org/<replace-with-created-DOI>) [![Documentation Status](https://readthedocs.org/projects/aoptk_ext/badge/?version=latest)](https://aoptk_ext.readthedocs.io/en/latest/?badge=latest) [![cffconvert](https://github.com/rdurnik/aoptk_ext/actions/workflows/cffconvert.yml/badge.svg)](https://github.com/rdurnik/aoptk_ext/actions/workflows/cffconvert.yml) 
+## AOP-toolkit (aoptk) extension
+Extension of the [aoptk package](https://github.com/rdurnik/aoptk).
 
-Extension of aoptk package.
-
-| fair-software.eu recommendations | |
-| :-- | :--  |
-| (1/5) code repository              | [![github repo badge](https://img.shields.io/badge/github-repo-000.svg?logo=github&labelColor=gray&color=blue)](https://github.com/rdurnik/aoptk_ext) |
-| (2/5) license                      | [![github license badge](https://img.shields.io/github/license/rdurnik/aoptk_ext)](https://github.com/rdurnik/aoptk_ext) |
-| (3/5) community registry           | [![RSD](https://img.shields.io/badge/rsd-aoptk_ext-00a3e3.svg)](https://www.research-software.nl/software/aoptk_ext) [![workflow pypi badge](https://img.shields.io/pypi/v/aoptk_ext.svg?colorB=blue)](https://pypi.python.org/project/aoptk_ext/) |
-| (4/5) citation                     | [![DOI](https://zenodo.org/badge/DOI/<replace-with-created-DOI>.svg)](https://doi.org/<replace-with-created-DOI>)|
-| (5/5) checklist                    | [![workflow cii badge](https://bestpractices.coreinfrastructure.org/projects/<replace-with-created-project-identifier>/badge)](https://bestpractices.coreinfrastructure.org/projects/<replace-with-created-project-identifier>) |
-| howfairis                          | [![fair-software badge](https://img.shields.io/badge/fair--software.eu-%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8F%20%20%E2%97%8B-yellow)](https://fair-software.eu) |
-| **Other best practices**           | &nbsp; |
-| Documentation                      | [![Documentation Status](https://readthedocs.org/projects/aoptk_ext/badge/?version=latest)](https://aoptk_ext.readthedocs.io/en/latest/?badge=latest) || **GitHub Actions**                 | &nbsp; |
-| Build                              | [![build](https://github.com/rdurnik/aoptk_ext/actions/workflows/build.yml/badge.svg)](https://github.com/rdurnik/aoptk_ext/actions/workflows/build.yml) |
-| Citation data consistency          | [![cffconvert](https://github.com/rdurnik/aoptk_ext/actions/workflows/cffconvert.yml/badge.svg)](https://github.com/rdurnik/aoptk_ext/actions/workflows/cffconvert.yml) || SonarCloud                         | [![sonarcloud](https://github.com/rdurnik/aoptk_ext/actions/workflows/sonarcloud.yml/badge.svg)](https://github.com/rdurnik/aoptk_ext/actions/workflows/sonarcloud.yml) |## How to use aoptk_ext
-
-
-The project setup is documented in [project_setup.md](project_setup.md). Feel free to remove this document (and/or the link to this document) if you don't need it.
 
 ## Installation
 
-To install aoptk_ext from GitHub repository, do:
+### Install from source (with uv)
 
 ```console
 git clone git@github.com:rdurnik/aoptk_ext.git
 cd aoptk_ext
-python -m pip install .
+uv sync --frozen
+uv pip install .
 ```
 
 ## Documentation
 
 Include a link to your project's full documentation here.
-
-## Contributing
-
-If you want to contribute to the development of aoptk_ext,
-have a look at the [contribution guidelines](CONTRIBUTING.md).
 
 ## Credits
 
