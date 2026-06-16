@@ -11,6 +11,8 @@ from aoptk.literature.pymupdf_parser import PymupdfParser
 from aoptk.text_utils import contains_any
 from aoptk.text_utils import end_of_span
 from aoptk.text_utils import ends
+from spacy.tokens import Doc
+from spacy.tokens import Span
 from spacy_layout import spaCyLayout
 from aoptk_ext.spacy_models import SpacyModels
 
@@ -53,11 +55,11 @@ class SpacyPDF(PymupdfParser):
             abstracts.append(abstract)
         return abstracts
 
-    def _parse_doc_pdf(self, doc: Any, pdf: PDF) -> Publication:
+    def _parse_doc_pdf(self, doc: Doc, pdf: PDF) -> Publication:
         """Parse a single PDF and return a Publication object.
 
         Args:
-            doc (Any): The spaCy document object.
+            doc (Doc): The spaCy document object.
             pdf (PDF): The PDF object.
         """
         publication_id = ID(Path(pdf.path).stem)
@@ -76,31 +78,31 @@ class SpacyPDF(PymupdfParser):
             tables=tables,
         )
 
-    def _parse_full_text(self, doc: Any) -> list[str]:
+    def _parse_full_text(self, doc: Doc) -> list[str]:
         """Extract the full text from the PDF.
 
         Args:
-            doc (Any): The spaCy document object.
+            doc (Doc): The spaCy document object.
         """
         first_page_spans = self._extract_first_page_spans(doc)
         remaining_pages_spans = self._extract_remaining_pages_spans(doc)
 
         return first_page_spans + remaining_pages_spans
 
-    def _extract_first_page_spans(self, doc: Any) -> list[str]:
+    def _extract_first_page_spans(self, doc: Doc) -> list[str]:
         """Extract text spans from the first page of the PDF.
 
         Args:
-            doc (Any): The spaCy document object.
+            doc (Doc): The spaCy document object.
         """
         _, page_spans = doc._.pages[0]
         return [span.text for span in page_spans if span.label_ == "text"]
 
-    def _extract_remaining_pages_spans(self, doc: Any) -> list[str]:
+    def _extract_remaining_pages_spans(self, doc: Doc) -> list[str]:
         """Extract text spans from the remaining pages of the PDF.
 
         Args:
-            doc (Any): The spaCy document object.
+            doc (Doc): The spaCy document object.
         """
         remaining_pages_spans: list[str] = []
         remaining_pages = doc._.pages[1:]
@@ -130,11 +132,11 @@ class SpacyPDF(PymupdfParser):
                     accumulated_text = ""
         return accumulated_text
 
-    def _should_skip_span(self, span: Any) -> bool:
+    def _should_skip_span(self, span: Span) -> bool:
         """Check if span should be skipped based on various criteria.
 
         Args:
-            span (Any): The text span object.
+            span (Span): The text span object.
         """
         return span.label_ != "text" or self._is_page_header_footer(span.text) or contains_any(span.text, ["GLYPH<c="])
 
@@ -168,11 +170,11 @@ class SpacyPDF(PymupdfParser):
             re.search(doi_pattern, text),
         )
 
-    def _parse_abstract(self, doc: Any, publication_id: ID) -> Abstract:
+    def _parse_abstract(self, doc: Doc, publication_id: ID) -> Abstract:
         """Extract the abstract from the PDF text.
 
         Args:
-            doc (Any): The spaCy document object.
+            doc (Doc): The spaCy document object.
             publication_id (ID): The publication ID.
         """
         _, page_spans = doc._.pages[0]
@@ -187,19 +189,19 @@ class SpacyPDF(PymupdfParser):
         return Abstract(text=abstract_text, id=publication_id)
 
 
-def _extract_figure_descriptions(doc: Any) -> list[str]:
+def _extract_figure_descriptions(doc: Doc) -> list[str]:
     """Extract figure descriptions from the PDF.
 
     Args:
-        doc (Any): The spaCy document object.
+        doc (Doc): The spaCy document object.
     """
     return [span.text for span in doc.spans["layout"] if span.label_ == "caption"]
 
 
-def _extract_tables(doc: Any) -> list[pd.DataFrame]:
+def _extract_tables(doc: Doc) -> list[pd.DataFrame]:
     """Extract tables from the PDF.
 
     Args:
-        doc (Any): The spaCy document object.
+        doc (Doc): The spaCy document object.
     """
     return [table._.data for table in doc._.tables]

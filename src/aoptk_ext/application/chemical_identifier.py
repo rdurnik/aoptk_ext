@@ -46,9 +46,8 @@ def cli(query: str, literature_database: str, chemical_database: str, email: str
         email (str): Email address to follow PubMed - NCBI guidelines.
         outdir (str): Output directory.
     """
-    database_with_ids = generate_database_with_ids(query, literature_database, email)
-
-    abstracts = database_with_ids.get_abstracts()
+    if database_with_ids := generate_database_with_ids(query, literature_database, email):
+        abstracts = database_with_ids.get_abstracts()
 
     list_of_relevant_chemicals = generate_relevant_chemicals(chemical_database)
     result_df = pd.DataFrame(columns=["publication_id", "chemicals"])
@@ -74,7 +73,8 @@ def generate_database_with_ids(query: str, literature_database: str, email: str)
         email (str): Email address to follow PubMed - NCBI guidelines.
     """
     if literature_database == "pubmed":
-        Entrez.email = email
+        if email is None:
+            Entrez.email = email
         pubmed = PubMed(query)
         ids = pubmed.get_ids()
         pubmed.id_list = ids

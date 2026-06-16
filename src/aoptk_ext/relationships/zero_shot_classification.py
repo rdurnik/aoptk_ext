@@ -20,14 +20,14 @@ class ZeroShotClassification(FindRelationship, ABC):
 
     def __init__(
         self,
-        relationships: list[str] | None,
+        relationships: tuple,
         model: str,
         threshold: float,
     ):
         self.relationships = relationships
         self.model = model
         self.threshold = threshold
-        self.classifier = pipeline(self.task, model)
+        self.classifier = pipeline(self.task, model)  # type: ignore[call-overload]
 
     @abstractmethod
     def _classify_relationship(self, text: str, chemical: Chemical, effect: Effect) -> Relationship | None: ...

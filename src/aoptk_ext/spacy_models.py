@@ -1,8 +1,12 @@
 """Singleton access to spaCy models."""
 
 from __future__ import annotations
+from typing import TYPE_CHECKING
 from typing import ClassVar
 import spacy
+
+if TYPE_CHECKING:
+    pass
 
 
 class SingletonMeta(type):
@@ -27,9 +31,9 @@ class SpacyModels(metaclass=SingletonMeta):
     """Provide shared spaCy models across the codebase."""
 
     def __init__(self) -> None:
-        self._models: dict[str, object] = {}
+        self._models: dict[str, spacy.Language] = {}
 
-    def get_model(self, model: str) -> object:
+    def get_model(self, model: str) -> spacy.Language:
         """Return a loaded or blank spaCy model, cached by name.
 
         Args:
@@ -44,11 +48,11 @@ class SpacyModels(metaclass=SingletonMeta):
                 self._models[model] = spacy.load(model)
         return self._models[model]
 
-    def ensure_pipe(self, model: object, pipe_name: str, config: dict | None = None) -> object:
+    def ensure_pipe(self, model: spacy.Language, pipe_name: str, config: dict | None = None) -> spacy.Language:
         """Ensure a pipeline component exists, returning the model.
 
         Args:
-            model (object): The spaCy model to modify.
+            model (spacy.Language): The spaCy model to modify.
             pipe_name (str): The name of the pipeline component to ensure.
             config (dict | None): Optional configuration for the pipeline component.
         """

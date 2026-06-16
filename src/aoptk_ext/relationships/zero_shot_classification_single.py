@@ -20,7 +20,7 @@ class ZeroShotClassificationSingle(ZeroShotClassification):
 
     def __init__(
         self,
-        relationships: list[str] | None = ("induces", "does not induce"),
+        relationships: tuple[str, ...] = ("induces", "does not induce"),
         model: str = "MoritzLaurer/deberta-v3-large-zeroshot-v2.0",
         threshold: float = 0.8,
     ):

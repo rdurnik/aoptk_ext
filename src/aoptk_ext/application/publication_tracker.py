@@ -8,6 +8,7 @@ from aoptk.literature.databases.europepmc import EuropePMC
 from aoptk.literature.databases.pubmed import PubMed
 from Bio import Entrez
 from openpyxl import load_workbook
+from openpyxl.worksheet.worksheet import Worksheet
 
 
 @click.command()
@@ -33,10 +34,11 @@ from openpyxl import load_workbook
     help="Database to search: PubMed or Europe PMC",
 )
 @click.option("--outdir", "-o", type=str, required=True, help="Output directory.")
-def cli(read: str, master: str, email: str, code: str, query: str, database: str, outdir: str) -> None:
+def cli(read: str, master: str, email: str | None, code: str, query: str, database: str, outdir: str) -> None:
     """Generate publications to read and update master table search codes."""
     if database == "pubmed":
-        Entrez.email = email
+        if email is None:
+            Entrez.email = email
         db = PubMed(query)
     elif database == "europepmc":
         db = EuropePMC(query)
@@ -112,9 +114,9 @@ def update_master_table_search_codes(
     master_wb.save(Path(outdir) / "updated_master_table.xlsx")
 
 
-def create_map_of_ids_from_master_table(master_ws: object, master_id_col: int) -> dict[str, list[int]]:
+def create_map_of_ids_from_master_table(master_ws: Worksheet, master_id_col: int) -> dict[str, list[int]]:
     """Create a map of IDs from the master table to their corresponding row indices."""
-    master_id_map = {}
+    master_id_map: dict[str, list[int]] = {}
     for idx, row in enumerate(master_ws.iter_rows(min_row=2, values_only=True), start=2):
         row_id = str(row[master_id_col]) if row[master_id_col] else None
         if row_id:

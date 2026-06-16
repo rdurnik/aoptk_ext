@@ -18,7 +18,7 @@ class ZeroShotClassificationMultiple(ZeroShotClassification):
 
     def __init__(
         self,
-        relationships: list[str] | None = (
+        relationships: tuple[str, ...] = (
             "induces",
             "does not induce",
             "prevents or does not prevent",

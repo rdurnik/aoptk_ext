@@ -1,5 +1,6 @@
 from __future__ import annotations
 import re
+from collections.abc import Iterator
 
 
 class AbbreviationDictionaryGenerator:
@@ -28,7 +29,7 @@ class AbbreviationDictionaryGenerator:
                 abbreviations_dict[abbreviation] = full_form.lower()
         return abbreviations_dict
 
-    def provide_list_of_abbreviations(self) -> list[str]:
+    def provide_list_of_abbreviations(self) -> Iterator[re.Match[str]]:
         """Find words in brackets that start with a capital letter or a number."""
         return re.finditer(r"\(([A-ZΑ-Ω0-9][A-Za-z0-9\-α-ωΑ-Ω]*)\)", self.text)
 

@@ -1,6 +1,6 @@
 from __future__ import annotations
-from typing import TYPE_CHECKING
 from typing import ClassVar
+import spacy
 from aoptk.chemical import Chemical
 from aoptk.find_chemical import FindChemical
 from aoptk.normalization.normalize_chemical import NormalizeChemical
@@ -8,9 +8,6 @@ from scispacy.linking import EntityLinker
 from aoptk_ext.sentence import Sentence
 from aoptk_ext.sentence_generator import SentenceGenerator
 from aoptk_ext.spacy_models import SpacyModels
-
-if TYPE_CHECKING:
-    from scispacy.linking import EntityLinker
 
 
 class SpacyText(FindChemical, SentenceGenerator, NormalizeChemical):
@@ -36,6 +33,8 @@ class SpacyText(FindChemical, SentenceGenerator, NormalizeChemical):
         """Initialize with a spaCy model."""
         self.model = model
         self.mesh_model = mesh_model
+        self.nlp: spacy.Language
+        self.nlp_mesh: spacy.Language
         models = SpacyModels()
         self.nlp = models.get_model(model)
         self.nlp_mesh = models.get_model(mesh_model)
